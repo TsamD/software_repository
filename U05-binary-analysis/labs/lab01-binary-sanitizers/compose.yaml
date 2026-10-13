@@ -1,0 +1,20 @@
+services:
+  lab:
+    build: .
+    image: software-security-binary:local
+    stdin_open: true
+    tty: true
+    working_dir: /workspace
+    volumes:
+      - ./:/workspace
+    network_mode: none
+    security_opt:
+      - no-new-privileges:true
+    cap_add:
+      - SYS_PTRACE
+    user: "${LAB_UID}:${LAB_GID}"
+    # Pour GDB si necessaire, utiliser ponctuellement:
+    # security_opt: [seccomp:unconfined, no-new-privileges:true
+
+
+

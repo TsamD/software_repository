@@ -1,0 +1,15 @@
+services:
+  lab:
+    build: .
+    image: software-security-fuzzing:local
+    user: "${LAB_UID:?Définir LAB_UID}:${LAB_GID:?Définir LAB_GID}"
+    stdin_open: true
+    tty: true
+    working_dir: /workspace
+    volumes:
+      - ./:/workspace
+    network_mode: "none"
+    security_opt:
+      - no-new-privileges:true
+    # Aucun mode privileged, aucun accès au socket Docker.
+

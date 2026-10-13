@@ -1,0 +1,31 @@
+services:
+  juice-shop:
+    image: bkimminich/juice-shop:latest
+    ports:
+      - "127.0.0.1:3000:3000"
+    security_opt:
+      - no-new-privileges:true
+  flask-vuln:
+    build: .
+    image: software-security-u07:local
+    user: "${LAB_UID:?Définir LAB_UID}:${LAB_GID:?Définir LAB_GID}"
+    working_dir: /workspace/src
+    volumes:
+      - ./src:/workspace/src
+    ports:
+      - "127.0.0.1:5001:5001"
+    command: python -m flask --app app run --host 0.0.0.0 --port 5001
+    security_opt:
+      - no-new-privileges:true
+  flask-fixed:
+    build: .
+    image: software-security-u07:local
+    user: "${LAB_UID:?Définir LAB_UID}:${LAB_GID:?Définir LAB_GID}"
+    working_dir: /workspace/src
+    volumes:
+      - ./src:/workspace/src
+    ports:
+      - "127.0.0.1:5003:5003"
+    command: python -m flask --app app_fixed run --host 0.0.0.0 --port 5003
+    security_opt:
+      - no-new-privileges:true

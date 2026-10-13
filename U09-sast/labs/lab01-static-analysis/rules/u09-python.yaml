@@ -1,0 +1,18 @@
+rules:
+  - id: u09-sqli
+    languages: [python]
+    severity: ERROR
+    message: "Requête SQL construite dynamiquement : risque de SQL injection (CWE-89)."
+    patterns:
+      - pattern-either:
+          - pattern: $Q = "..." % (...)
+          - pattern: $Q = "..." + $INPUT + "..."
+      - metavariable-regex:
+          metavariable: $Q
+          regex: "^q$"
+
+  - id: u09-shell-injection
+    languages: [python]
+    severity: ERROR
+    message: "Commande exécutée avec shell=True : risque d'injection de commandes (CWE-78)."
+    pattern: subprocess.check_output(..., shell=True, ...)

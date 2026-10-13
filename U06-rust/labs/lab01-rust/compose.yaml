@@ -1,0 +1,15 @@
+services:
+  rust-lab:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: software-security-u06:local
+    container_name: software-security-u06
+    working_dir: /workspace
+    stdin_open: true
+    tty: true
+    volumes:
+      - ./src:/workspace/src
+    user: "${LAB_UID:?Définir LAB_UID}:${LAB_GID:?Définir LAB_GID}" 
+    command: bash
+

@@ -1,0 +1,15 @@
+services:
+  lab:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: software-security-u10:local
+    user: "${LAB_UID:?Définir LAB_UID}:${LAB_GID:?Définir LAB_GID}"
+    working_dir: /workspace
+    volumes:
+      - ./src:/workspace/src
+    stdin_open: true
+    tty: true
+    network_mode: none
+    security_opt:
+      - no-new-privileges:true
